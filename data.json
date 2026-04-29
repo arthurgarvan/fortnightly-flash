@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-04-29T22:00:00Z",
+  "markets": [
+    {
+      "commodity": "Wheat",
+      "price": 245.50,
+      "unit": "AUD/tonne",
+      "change24h": 1.25,
+      "volume": 125000,
+      "trend": "bullish",
+      "forecast": "Strong demand from Asian markets continues to support prices. Winter crop plantings ahead should support supply dynamics."
+    },
+    {
+      "commodity": "Barley",
+      "price": 198.75,
+      "unit": "AUD/tonne",
+      "change24h": -0.85,
+      "volume": 87500,
+      "trend": "bearish",
+      "forecast": "Oversupply concerns from European markets weighing on prices. Domestic demand remains steady but export competition intensifying."
+    },
+    {
+      "commodity": "Cotton",
+      "price": 520.00,
+      "unit": "AUD/bale",
+      "change24h": 2.10,
+      "volume": 45000,
+      "trend": "bullish",
+      "forecast": "Global cotton prices rallying on production concerns. Australian growers benefiting from favorable spring conditions."
+    },
+    {
+      "commodity": "Wool",
+      "price": 12.45,
+      "unit": "AUD/kg",
+      "change24h": 0.50,
+      "volume": 2500000,
+      "trend": "neutral",
+      "forecast": "Steady demand from Chinese mills supporting prices. Seasonal fleece supply coming to market stabilizing valuations."
+    },
+    {
+      "commodity": "Beef",
+      "price": 8.75,
+      "unit": "AUD/kg",
+      "change24h": 1.75,
+      "volume": 1500000,
+      "trend": "bullish",
+      "forecast": "Tight supply underpinning prices as herd rebuilding continues. Export markets showing sustained demand for premium cuts."
+    }
+  ],
+  "summary": "Australian agricultural markets showing mixed sentiment this fortnight. Strong international demand for wheat and cotton offsetting bearish pressure in barley. Beef prices rallying on supply tightness while wool remains stable. Farmers advised to monitor currency movements and global supply developments. Forecast: Moderate volatility expected with upside bias for most commodities through the coming fortnight."
+}
