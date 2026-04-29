@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortnightly Flash - Australian Agricultural Market Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5344 50%, #4A7C59 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .last-updated {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #8B7355;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card h2 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 10px;
+        }
+        
+        .trend-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .trend-bullish {
+            background: #D4EDDA;
+            color: #155724;
+        }
+        
+        .trend-bearish {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+        
+        .trend-neutral {
+            background: #E2E3E5;
+            color: #383D41;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8B7355;
+        }
+        
+        .change-positive {
+            color: #10b981;
+        }
+        
+        .change-negative {
+            color: #ef4444;
+        }
+        
+        .forecast {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 3px solid #D4AF37;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .summary {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .summary h3 {
+            color: #8B7355;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .summary p {
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Fortnightly Flash</h1>
+            <p class="subtitle">Australian Agricultural Market Report</p>
+        </header>
+        
+        <div class="last-updated" id="lastUpdated"></div>
+        
+        <div id="dashboard" class="dashboard">
+            <div class="loading">Loading market data...</div>
+        </div>
+        
+        <div id="summary" class="summary" style="display: none;">
+            <h3>📊 Market Summary</h3>
+            <p id="summaryText"></p>
+        </div>
+        
+        <div id="error" class="error" style="display: none;"></div>
+    </div>
+    
+    <script>
+        async function fetchMarketData() {
+            try {
+                // Just grab the static file the GitHub Action generated!
+                const res = await fetch('data.json'); 
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return await res.json();
+            } catch(e) {
+                console.error('Fetch error:', e);
+                return null;
+            }
+        }
+        
+        function renderDashboard(data) {
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+            
+            if (!data.markets || data.markets.length === 0) {
+                dashboard.innerHTML = '<div class="loading">No market data available</div>';
+                return;
+            }
+            
+            data.markets.forEach(market => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const trendClass = `trend-${market.trend?.toLowerCase() || 'neutral'}`;
+                const changeClass = market.change24h >= 0 ? 'change-positive' : 'change-negative';
+                const changeSymbol = market.change24h >= 0 ? '📈' : '📉';
+                
+                card.innerHTML = `
+                    <h2>${market.commodity}</h2>
+                    <div class="trend-badge ${trendClass}">
+                        ${market.trend?.toUpperCase() || 'NEUTRAL'}
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Price</span>
+                        <span class="metric-value">$${market.price.toFixed(2)}/${market.unit}</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">24h Change</span>
+                        <span class="metric-value ${changeClass}">
+                            ${changeSymbol} ${market.change24h >= 0 ? '+' : ''}${market.change24h.toFixed(2)}%
+                        </span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Volume</span>
+                        <span class="metric-value">${market.volume.toLocaleString()} units</span>
+                    </div>
+                    ${market.forecast ? `<div class="forecast">📌 ${market.forecast}</div>` : ''}
+                `;
+                dashboard.appendChild(card);
+            });
+        }
+        
+        function updateTimestamp(timestamp) {
+            const lastUpdated = document.getElementById('lastUpdated');
+            const date = new Date(timestamp);
+            lastUpdated.textContent = `📅 Last updated: ${date.toLocaleString('en-AU')}`;
+        }
+        
+        function showSummary(data) {
+            if (data.summary) {
+                const summaryDiv = document.getElementById('summary');
+                const summaryText = document.getElementById('summaryText');
+                summaryText.textContent = data.summary;
+                summaryDiv.style.display = 'block';
+            }
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = `⚠️ ${message}`;
+            errorDiv.style.display = 'block';
+        }
+        
+        async function loadData() {
+            const data = await fetchMarketData();
+            
+            if (!data) {
+                showError('Failed to load market data. Please try again later.');
+                return;
+            }
+            
+            renderDashboard(data);
+            updateTimestamp(data.timestamp);
+            showSummary(data);
+        }
+        
+        // Load data when page loads
+        loadData();
+        
+        // Refresh data every 5 minutes
+        setInterval(loadData, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
