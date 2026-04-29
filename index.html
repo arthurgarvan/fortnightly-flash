@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortnightly Flash - Australian Agricultural Market Report</title>
+    <title>Fortnightly Flash - Agricultural Market Report</title>
     <style>
         * {
             margin: 0;
@@ -19,14 +19,14 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
         header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         
         h1 {
@@ -40,6 +40,14 @@
             opacity: 0.9;
         }
         
+        .report-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
         .last-updated {
             text-align: center;
             color: white;
@@ -48,100 +56,63 @@
             opacity: 0.8;
         }
         
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 30px;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 5px solid #8B7355;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .card h2 {
-            font-size: 1.4rem;
+        .report-content {
+            line-height: 1.8;
             color: #333;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #D4AF37;
-            padding-bottom: 10px;
         }
         
-        .trend-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+        .report-content h2 {
+            color: #8B7355;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 8px;
+        }
+        
+        .report-content h3 {
+            color: #6B5344;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .report-content p {
             margin-bottom: 12px;
         }
         
-        .trend-bullish {
-            background: #D4EDDA;
-            color: #155724;
+        .report-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
         }
         
-        .trend-bearish {
-            background: #F8D7DA;
-            color: #721C24;
-        }
-        
-        .trend-neutral {
-            background: #E2E3E5;
-            color: #383D41;
-        }
-        
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .metric:last-child {
-            border-bottom: none;
-        }
-        
-        .metric-label {
-            color: #666;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        
-        .metric-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #8B7355;
-        }
-        
-        .change-positive {
-            color: #10b981;
-        }
-        
-        .change-negative {
-            color: #ef4444;
-        }
-        
-        .forecast {
-            margin-top: 12px;
+        .report-content th,
+        .report-content td {
+            border: 1px solid #ddd;
             padding: 12px;
-            background: #f9f9f9;
-            border-left: 3px solid #D4AF37;
-            border-radius: 4px;
+            text-align: left;
             font-size: 0.9rem;
-            color: #555;
-            font-style: italic;
+        }
+        
+        .report-content th {
+            background-color: #8B7355;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .report-content tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .report-content a {
+            color: #0066cc;
+            text-decoration: none;
+            word-break: break-word;
+        }
+        
+        .report-content a:hover {
+            text-decoration: underline;
         }
         
         .loading {
@@ -160,23 +131,30 @@
             margin-top: 20px;
         }
         
-        .summary {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .sources {
+            background: #f0f0f0;
+            border-left: 4px solid #8B7355;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
         
-        .summary h3 {
+        .sources h4 {
             color: #8B7355;
-            margin-bottom: 12px;
-            font-size: 1.3rem;
+            margin-bottom: 10px;
         }
         
-        .summary p {
-            color: #555;
-            line-height: 1.6;
+        .sources a {
+            display: block;
+            margin: 5px 0;
+            color: #0066cc;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .sources a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -184,27 +162,21 @@
     <div class="container">
         <header>
             <h1>⚡ Fortnightly Flash</h1>
-            <p class="subtitle">Australian Agricultural Market Report</p>
+            <p class="subtitle">Agricultural Market Intelligence Report</p>
         </header>
         
         <div class="last-updated" id="lastUpdated"></div>
         
-        <div id="dashboard" class="dashboard">
-            <div class="loading">Loading market data...</div>
-        </div>
-        
-        <div id="summary" class="summary" style="display: none;">
-            <h3>📊 Market Summary</h3>
-            <p id="summaryText"></p>
+        <div id="reportContainer" class="report-container">
+            <div class="loading">Loading market report...</div>
         </div>
         
         <div id="error" class="error" style="display: none;"></div>
     </div>
     
     <script>
-        async function fetchMarketData() {
+        async function fetchReport() {
             try {
-                // Just grab the static file the GitHub Action generated!
                 const res = await fetch('data.json'); 
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 return await res.json();
@@ -214,46 +186,37 @@
             }
         }
         
-        function renderDashboard(data) {
-            const dashboard = document.getElementById('dashboard');
-            dashboard.innerHTML = '';
+        function renderReport(data) {
+            const container = document.getElementById('reportContainer');
+            container.innerHTML = '';
             
-            if (!data.markets || data.markets.length === 0) {
-                dashboard.innerHTML = '<div class="loading">No market data available</div>';
+            if (!data.report) {
+                container.innerHTML = '<div class="loading">No report data available</div>';
                 return;
             }
             
-            data.markets.forEach(market => {
-                const card = document.createElement('div');
-                card.className = 'card';
+            const reportDiv = document.createElement('div');
+            reportDiv.className = 'report-content';
+            reportDiv.innerHTML = data.report;
+            
+            container.appendChild(reportDiv);
+            
+            // Add sources section
+            if (data.datasources) {
+                const sourcesDiv = document.createElement('div');
+                sourcesDiv.className = 'sources';
+                sourcesDiv.innerHTML = '<h4>📋 Data Sources:</h4>';
                 
-                const trendClass = `trend-${market.trend?.toLowerCase() || 'neutral'}`;
-                const changeClass = market.change24h >= 0 ? 'change-positive' : 'change-negative';
-                const changeSymbol = market.change24h >= 0 ? '📈' : '📉';
+                Object.entries(data.datasources).forEach(([key, url]) => {
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.target = '_blank';
+                    link.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${url}`;
+                    sourcesDiv.appendChild(link);
+                });
                 
-                card.innerHTML = `
-                    <h2>${market.commodity}</h2>
-                    <div class="trend-badge ${trendClass}">
-                        ${market.trend?.toUpperCase() || 'NEUTRAL'}
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Price</span>
-                        <span class="metric-value">$${market.price.toFixed(2)}/${market.unit}</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">24h Change</span>
-                        <span class="metric-value ${changeClass}">
-                            ${changeSymbol} ${market.change24h >= 0 ? '+' : ''}${market.change24h.toFixed(2)}%
-                        </span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Volume</span>
-                        <span class="metric-value">${market.volume.toLocaleString()} units</span>
-                    </div>
-                    ${market.forecast ? `<div class="forecast">📌 ${market.forecast}</div>` : ''}
-                `;
-                dashboard.appendChild(card);
-            });
+                reportDiv.appendChild(sourcesDiv);
+            }
         }
         
         function updateTimestamp(timestamp) {
@@ -262,39 +225,29 @@
             lastUpdated.textContent = `📅 Last updated: ${date.toLocaleString('en-AU')}`;
         }
         
-        function showSummary(data) {
-            if (data.summary) {
-                const summaryDiv = document.getElementById('summary');
-                const summaryText = document.getElementById('summaryText');
-                summaryText.textContent = data.summary;
-                summaryDiv.style.display = 'block';
-            }
-        }
-        
         function showError(message) {
             const errorDiv = document.getElementById('error');
             errorDiv.textContent = `⚠️ ${message}`;
             errorDiv.style.display = 'block';
         }
         
-        async function loadData() {
-            const data = await fetchMarketData();
+        async function loadReport() {
+            const data = await fetchReport();
             
             if (!data) {
-                showError('Failed to load market data. Please try again later.');
+                showError('Failed to load market report. Please try again later.');
                 return;
             }
             
-            renderDashboard(data);
+            renderReport(data);
             updateTimestamp(data.timestamp);
-            showSummary(data);
         }
         
-        // Load data when page loads
-        loadData();
+        // Load report when page loads
+        loadReport();
         
-        // Refresh data every 5 minutes
-        setInterval(loadData, 5 * 60 * 1000);
+        // Refresh report every 5 minutes
+        setInterval(loadReport, 5 * 60 * 1000);
     </script>
 </body>
 </html>
