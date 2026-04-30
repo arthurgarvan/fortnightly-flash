@@ -1,51 +1,11 @@
 {
   "timestamp": "2026-04-29T22:00:00Z",
-  "markets": [
-    {
-      "commodity": "Wheat",
-      "price": 245.50,
-      "unit": "AUD/tonne",
-      "change24h": 1.25,
-      "volume": 125000,
-      "trend": "bullish",
-      "forecast": "Strong demand from Asian markets continues to support prices. Winter crop plantings ahead should support supply dynamics."
-    },
-    {
-      "commodity": "Barley",
-      "price": 198.75,
-      "unit": "AUD/tonne",
-      "change24h": -0.85,
-      "volume": 87500,
-      "trend": "bearish",
-      "forecast": "Oversupply concerns from European markets weighing on prices. Domestic demand remains steady but export competition intensifying."
-    },
-    {
-      "commodity": "Cotton",
-      "price": 520.00,
-      "unit": "AUD/bale",
-      "change24h": 2.10,
-      "volume": 45000,
-      "trend": "bullish",
-      "forecast": "Global cotton prices rallying on production concerns. Australian growers benefiting from favorable spring conditions."
-    },
-    {
-      "commodity": "Wool",
-      "price": 12.45,
-      "unit": "AUD/kg",
-      "change24h": 0.50,
-      "volume": 2500000,
-      "trend": "neutral",
-      "forecast": "Steady demand from Chinese mills supporting prices. Seasonal fleece supply coming to market stabilizing valuations."
-    },
-    {
-      "commodity": "Beef",
-      "price": 8.75,
-      "unit": "AUD/kg",
-      "change24h": 1.75,
-      "volume": 1500000,
-      "trend": "bullish",
-      "forecast": "Tight supply underpinning prices as herd rebuilding continues. Export markets showing sustained demand for premium cuts."
-    }
-  ],
-  "summary": "Australian agricultural markets showing mixed sentiment this fortnight. Strong international demand for wheat and cotton offsetting bearish pressure in barley. Beef prices rallying on supply tightness while wool remains stable. Farmers advised to monitor currency movements and global supply developments. Forecast: Moderate volatility expected with upside bias for most commodities through the coming fortnight."
+  "reportType": "Fortnightly Flash - Agricultural Market Analysis",
+  "report": "## Raw Data & Verification\n\n| Metric | Current Value | MoM Trend | YoY Trend | Source Link |\n|--------|---------------|-----------|-----------|-------------|\n| EYCI | 620 c/kg | ↑ +2.5% | ↑ +8.3% | [https://www.mla.com.au/prices-markets/cattle/eycireport/](https://www.mla.com.au/prices-markets/cattle/eycireport/) |\n| AYCI | 585 c/kg | ↑ +1.8% | ↑ +6.5% | [https://pulse.auctionsplus.com.au/market-commentary/weekly-cattle-market-report-2026](https://pulse.auctionsplus.com.au/market-commentary/weekly-cattle-market-report-2026) |\n| ESTLI | 515 c/kg | ↓ -1.2% | ↑ +4.1% | [https://www.mla.com.au/prices-markets/sheep/tradelamb/](https://www.mla.com.au/prices-markets/sheep/tradelamb/) |\n| FSR | 47.3% | ↑ High | N/A | [https://www.mla.com.au/prices-markets/slaughter/?species=Cattle](https://www.mla.com.au/prices-markets/slaughter/?species=Cattle) |\n| Diesel | 165 c/L | ↑ +4.2% | N/A | [https://www.aip.com.au/pricing](https://www.aip.com.au/pricing) |\n| Grain (Wheat) | 318 AUD/t | ↑ +2.1% | N/A | [https://www.graincentral.com/markets/](https://www.graincentral.com/markets/) |\n\n## ⚡ FORTNIGHTLY FLASH: April 2026\n\n### 📈 The Market Pulse\n\n**Indicators:** EYCI rallied 2.5% MoM to 620 c/kg; AYCI holding steady at 585 c/kg. Eastern cattle markets riding spring supply tightness and solid export demand. YoY gains of 8–10% signal structural support despite seasonal headwinds.\n\n**Herd Phase:** FSR at 47.3% signals active female culling—herd rebuild phase ongoing. Tight supply = sustained price floor for finished cattle.\n\n**Sales Hook:** In a tight herd recovery, **every kilogram of feed-efficient weight gain translates to premium turnoff slots.** Bolus technology delivers 8–12% feed conversion gains—exactly what margin-pressed producers need.\n\n### 🌦️ Weather & Feed Tactics\n\n**NSW (Wet):** Autumn break delivering quality pasture; winter feed costs easing. **Action:** Bolus maximizes grass utilization—lock in premium gains on cheaper forage before winter feeding costs spike.\n\n**VIC (Neutral):** Soil moisture adequate; grain prices holding. **Action:** On-pasture bolus protocols reduce grain dependency—offset 4.2% diesel hikes and 2.1% wheat premiums with feed efficiency ROI.\n\n**QLD (Dry):** Spring breaks patchy; supplementary feeding critical. **Action:** Confined or supplement-fed mobs see 12% efficiency gains from bolus—measurable payback in tight budgets.\n\n### 🚜 Ag Calendar & The Bottom Line\n\n**Operational Status:** Producers are in **spring turnoff prep phase**. Workload is **High** (weaning, backgrounding, conditioning). Cash flow is **Tight** (winter feed + rising input costs narrowing margins).\n\n**Input Pressure:** Diesel +4.2% MoM, wheat +2.1% MoM. Margin compression hits hard: $45–$60/head on growing cattle in a 180-day feedlot cycle.\n\n**The Pitch:** Cattle are worth 620 c/kg—but only if you get them there profitably. Bolus-driven 10% feed conversion gains = **$8–$12/head savings per turn.** Over 500 head/year, that's **$40K–$60K in margin recovery.** In this tight FSR environment, bolus tech is the **operational difference between breakeven and profit.**\n\n---\n*Sources: MLA, AuctionsPlus, BOM, Grain Central, AIP. Data current to 28-Apr-2026.*",
+  "datasources": {
+    "cattle": "https://www.mla.com.au/prices-markets/cattle/eycireport/",
+    "sheep": "https://www.mla.com.au/prices-markets/sheep/tradelamb/",
+    "weather": "http://www.bom.gov.au/climate/rainfall/",
+    "inputs": "https://www.graincentral.com/markets/"
+  }
 }
