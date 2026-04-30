@@ -1,0 +1,32 @@
+name: Update Market Data
+
+on:
+  schedule:
+    # Runs at 22:00 UTC (9:00 AM AEST) on the 1st and 15th of every month
+    - cron: '0 22 1,15 * *'
+  workflow_dispatch: # Allows you to click a "Run Now" button manually
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Fetch Script
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node update-data.js
+
+      - name: Commit and Push New Data
+        run: |
+          git config --global user.name "Market-Bot"
+          git config --global user.email "bot@example.com"
+          git add data.json
+          git commit -m "chore: update fortnightly market data" || exit 0
+          git push
